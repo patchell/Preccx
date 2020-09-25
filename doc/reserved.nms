@@ -1,0 +1,71 @@
+The following names are declared in the cc.h and ccx.h files and are
+therefore visible to applications, and should be avoided by the
+programmer.
+
+Also the following namespace is reserved; all names beginning :
+
+    p_*
+    precc_*
+    P_*
+    PRECC_*
+    hid[0-9][0-9]*
+
+
+# define  CHAR        = char
+  typedef characters  = *char
+# define  CHARS       = characters
+
+  The following are available (and intended) for redefinition :
+
+# define  VALUE       = char*
+# define  TOKEN       = char		
+# define  PARAM       = long	
+
+# define MAXPROGRAMSIZE
+                      = 4096        (max actions between cuts)
+# define READBUFFERSIZE
+                      = 2048        (max backtrackable tokens between cuts)
+# define STACKSIZE    = 4096        (backwards compatibility support)
+# define CONTEXTSTACKSIZE
+                      = 1024        (obsolete)
+# define C_STACKSIZE  = 0x7FFF      (only needed in 16 bit dos)
+
+  The following have to be externally supplied (lexer)
+
+  extern  yybuffer    :: *TOKEN
+  extern  yytchar     :: int
+  extern  yylineno    :: int
+  extern  yylex       :: int()
+  extern  yylen       :: int
+  extern  yyloc       :: *char
+  extern  yylval      :: VALUE
+
+  The following are visible and reserved
+
+# define  VOID        = void
+
+  typedef STATUS      = PARAM
+  typedef PARSER      = STATUS()
+  typedef ACTION      = VOID()
+  typedef BOOLEAN     = int
+  typedef PREDICATE   = BOOLEAN()
+
+  extern p_argc       :: int       (main program argc)
+  extern p_argv       :: char[][]  (main program argv)
+  extern p_infile     :: char[]    (lexer input file name)
+  extern p_outfile    :: char[]    (lexer output file name)
+
+  extern call_mode    :: int
+  extern optimize     :: int
+  extern msdos        :: int
+
+# define INCR         =   5
+# define PARM         =   4
+# define FUNC         =   3
+# define EXIT         =   2
+# define CNST         =   1
+# define NOP          =   0
+
+# define MAIN(x)      = ...
+
+

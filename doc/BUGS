@@ -1,0 +1,70 @@
+Well, I'll start a buglist.  I used to have one, but it seems to have
+disappeared, (I generally solve them when reported ..)
+
+PTB
+
+-----------------------------------------------------------------------
+Precc 2.44 (John M. Dlugosz 12/08/98)
+
+A "test" containing side-effecting C code such as
+
+          @a = )b[++c](
+
+will cause preccx to segfault or fail to emit correct code.
+
+STATUS: Solved 1/9/1998 for 2.45c and above
+
+ANALYSIS: The killer is the ++.  The problem manifests in the C expression
+          parser. Miscount in the tokenizer for double char prefix ops.
+
+WORKAROUND: 
+
+(2.40 ..) #define FOO b[++c]
+
+          @a = )FOO(
+
+          #undef FOO
+
+(2.45 ..)
+
+          @a = {) b[++c] (}
+     or
+          @a = ){ b[++c] }(
+
+both of which will parse the C expression in a more naive but
+more robust way.
+
+-----------------------------------------------------------------------
+Precc 2.44 (PTB)
+
+stack-hopping via longjmp still not working is some cases. Example
+is the z code in examples!
+
+STATUS: Worked around 10/1/1999 for 2.45j and above by disabling the
+       "use jumps" compiler flag in the defaults.
+
+ANALYSIS: Not known.
+
+WORKAROUND: 
+
+Compile with DO_NOT_USE_JUMPS defined! (it's the default)
+
+-----------------------------------------------------------------------
+
+Precc 2.55 (PTB/AR)
+
+Alexander (alexraynepe196@hotbox.ru) noticed that after a commit (!),
+the BOS (^) parser will maybe return a match when it ought not to.
+
+STATUS: Fixed in 2.56. Added a prior context of 1 token (or more)
+        of length defined by self->nprev.
+
+ANALYSIS: Not preserving prior tokens after a stack realignment
+       murders unofficial parse look-behinds. This fixes things for the
+       time being, but a supported syntax for pstr[-1] dould be nice.
+
+WORKAROUND: Don't do ^ after a !, or use 2.56 or higher.
+
+-----------------------------------------------------------------------
+
+
