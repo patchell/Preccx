@@ -1,0 +1,15 @@
+preccx.exe  
+preccx
+*.dsk  
+*.lib
+*.dsk
+*.zip
+*.bak
+*.swp
+*.obj
+*.o
+*.a
+*~
+*.tar
+*.tgz
+*.gz

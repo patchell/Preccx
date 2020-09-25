@@ -1,0 +1,57 @@
+------------------------------------------------------------------------
+ PRECC 2.51 COMPILER COMPILER   Copyright Peter T. Breuer,      Jan 1999
+ All rights reserved.(file: RUN) <ptb@it.uc3m.es>
+------------------------------------------------------------------------
+
+You should read this file after you have carried out the installation
+procedure detailed in INSTALL, or after the automatic installation
+mediated by install.exe has completed (DOS) or after `make' has been run
+succesfully (UNIX).
+
+
+RUNNING INSTRUCTIONS.
+
+a) run precc over your script file to produce a C file
+
+	preccx  foobar.y  foobar.c
+
+b) compile the C file, using the  appropriate PRECCX  library as final
+   resource. For example, under UNIX, using the libcc.a library in the
+   current directory:
+
+   gcc -o foobar foobar.c -L . -lcc  -D__STDC__
+ 
+   The flag __STDC__ can be defined, but most ansi compilers do this for
+   you.  You DON'T need to set __STDC__ if compiling under TURBO-C, for
+   instance, because either the compiler will be in ansi mode and set it
+   for you, or it will be in TC mode, which is a superset, and the flag
+   will not be set and it does not matter.  All you have to check for is
+   that the compiler not be in K&R mode, because that is a subset of
+   ansi and PRECCX uses ansi prototypes that are not K&R compatible.
+   
+   The compilation instructions under TURBO-C are
+
+   tc foobar.c /b
+   
+   and you should have prepared a project file in the same directory
+
+		foobar.prj
+
+   which lists foobar.c as its main file, has the directory where you
+   put the cc.h and ccx.h files in its list of `include' directories, &
+   refers specifically to one of the library files preccx??.lib in the
+   file list.  MAKE SURE THAT THE LIBRARY MATCHES THE MEMORY MODEL AND
+   TOKEN SIZE!!  For example, use preccx1c.lib for `char' TOKENs and the
+   `compact' model.
+
+c) run the executable that results, typing into it to test it out:
+
+	foobar
+
+Examples of the usual forms of PRECCX script are in the  directory that
+the installation routine by default assigns to \PRECCX\EXAMPLE, and the
+source for these is the preccxe.zip archive in the distribution.
+
+------------------------------------------------------------------------
+Peter T. Breuer   <ptb@eng.cam.ac.uk,ptb@comlab.ox.ac.uk,ptb@dit.upm.es>
+
