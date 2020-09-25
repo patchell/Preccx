@@ -1,5 +1,0 @@
-include ../src/Make.conf
-
-install: $(DOCS)
-	- $(INSTALL_DIR) $(DOCDIR) 
-	- $(INSTALL) $(DOCS) $(DOCDIR) 
